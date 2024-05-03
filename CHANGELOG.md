@@ -1,5 +1,10 @@
 # Change Log
 
+## 1.1.0
+
+d989a19 (HEAD -> develop) feat(server): add version interface
+66eb50d fix(docker): use docker-compose absolute path
+
 ## 1.0.0
 
 8515f05 (HEAD -> develop) feat(workflows): add github workflows to build docker image and deploy to remote host
