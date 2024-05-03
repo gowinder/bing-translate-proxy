@@ -24,9 +24,10 @@ app.use((req, res, next) => {
 // 定义翻译接口
 app.post("/translate", async (req, res) => {
   const { text, target_language } = req.body;
-
+  console.log("request, text:", text, ", target_language: ", target_language);
   try {
     const result = await translate(text, null, target_language);
+    console.log("result: ", result);
     res.json({ translation: result.translation });
   } catch (error) {
     console.error("Bing Translate API error:", error);
@@ -35,7 +36,7 @@ app.post("/translate", async (req, res) => {
 });
 
 app.get("/version", async (req, res) => {
-    res.status(200).text(VERSION);
+  res.status(200).text(VERSION);
 });
 
 // 启动服务器
