@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.2
+
+8efd948 (HEAD -> develop) fix(server): fix /version
+
 ## 1.5.1
 
 c4e70d1 (HEAD -> develop) fix(server): add log to /translate
