@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.1
+
+c4e70d1 (HEAD -> develop) fix(server): add log to /translate
+
 ## 1.5.0
 
 1200513 (HEAD -> develop) fix(workflow): readd deploy to remote server step
