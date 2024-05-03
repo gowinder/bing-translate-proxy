@@ -32,5 +32,5 @@ jobs:
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
             cd /home/ubuntu/compose/bing-translate-proxy
-            docker-compose pull
-            docker-compose up -d
+            /home/ubuntu/.local/bin/docker-compose pull
+            /home/ubuntu/.local/bin/docker-compose up -d
