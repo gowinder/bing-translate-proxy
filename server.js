@@ -36,7 +36,7 @@ app.post("/translate", async (req, res) => {
 });
 
 app.get("/version", async (req, res) => {
-  res.status(200).text(VERSION);
+  res.status(200).send(VERSION);
 });
 
 // 启动服务器
