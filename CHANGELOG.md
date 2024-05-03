@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.3.0
+
+dc6c7a2 (HEAD -> develop) feat(docker): support arm64 image
+
 ## 1.2.0
 
 e5fa943 (HEAD -> develop) fix(docker): add latest tag when push docker image
