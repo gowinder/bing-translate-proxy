@@ -1,6 +1,8 @@
 const express = require("express");
 require("dotenv").config();
 const { translate } = require("bing-translate-api");
+const req = require("express/lib/request");
+const { VERSION } = require("./version");
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -31,6 +33,10 @@ app.post("/translate", async (req, res) => {
     res.status(500).json({ error: "Translation failed" });
   }
 });
+
+app.get("/version", async (req, res) => {
+    res.status(200).text(VERSION);
+}
 
 // 启动服务器
 app.listen(port, () => {
