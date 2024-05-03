@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.5.0
+
+1200513 (HEAD -> develop) fix(workflow): readd deploy to remote server step
+
 ## 1.4.0
 
 c340bf8 (HEAD -> develop) fix(server): fix /version
