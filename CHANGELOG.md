@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.2.0
+
+e5fa943 (HEAD -> develop) fix(docker): add latest tag when push docker image
+
 ## 1.1.0
 
 d989a19 (HEAD -> develop) feat(server): add version interface
