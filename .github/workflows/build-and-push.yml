@@ -8,6 +8,9 @@ on:
 jobs:
   build-and-push:
     runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        arch: ["amd64", "arm64"]
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -18,22 +21,18 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
 
-      - name: Build Docker image
-        run: docker build -t ${{ secrets.DOCKER_USERNAME }}/bing-translate-api:${{ github.ref_name }} .
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v2
 
-      - name: Push Docker image
-        run: |
-          docker push gowinder/bing-translate-api:${{ github.ref_name }}
-          docker tag gowinder/bing-translate-api:${{ github.ref_name }} gowinder/bing-translate-api:latest
-          docker push gowinder/bing-translate-api:latest
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v2
 
-      - name: Deploy to remote server
-        uses: appleboy/ssh-action@master
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v3
         with:
-          host: ${{ secrets.REMOTE_HOST }}
-          username: ${{ secrets.REMOTE_USER }}
-          key: ${{ secrets.SSH_PRIVATE_KEY }}
-          script: |
-            cd /home/ubuntu/compose/bing-translate-proxy
-            /home/ubuntu/.local/bin/docker-compose pull
-            /home/ubuntu/.local/bin/docker-compose up -d
+          context: .
+          push: true
+          tags: |
+            gowinder/bing-translate-api:${{ github.ref_name }}-${{ matrix.arch }}
+            gowinder/bing-translate-api:latest-${{ matrix.arch }}
+          platforms: linux/${{ matrix.arch }}
