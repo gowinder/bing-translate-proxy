@@ -36,3 +36,14 @@ jobs:
             gowinder/bing-translate-api:${{ github.ref_name }}-${{ matrix.arch }}
             gowinder/bing-translate-api:latest-${{ matrix.arch }}
           platforms: linux/${{ matrix.arch }}
+      
+      - name: Deploy to remote server
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.REMOTE_HOST }}
+          username: ${{ secrets.REMOTE_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            cd /home/ubuntu/compose/bing-translate-proxy
+            /home/ubuntu/.local/bin/docker-compose pull
+            /home/ubuntu/.local/bin/docker-compose up -d
