@@ -1,5 +1,9 @@
 # Change Log
 
+## 1.4.0
+
+c340bf8 (HEAD -> develop) fix(server): fix /version
+
 ## 1.3.0
 
 dc6c7a2 (HEAD -> develop) feat(docker): support arm64 image
