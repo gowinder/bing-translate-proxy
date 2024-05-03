@@ -210,3 +210,4 @@ $RECYCLE.BIN/
 *.lnk
 .env
 .env.*
+docker-compose.example.yml
