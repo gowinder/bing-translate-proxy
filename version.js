@@ -1,6 +1,6 @@
 // version.js
 
-const VERSION = "1.6.0";
+const VERSION = "1.6.";
 
 module.exports = {
   VERSION,
