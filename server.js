@@ -1,6 +1,6 @@
 const express = require("express");
 require("dotenv").config();
-const { translate } = require("bing-translate-api");
+const { translate, MET } = require("bing-translate-api");
 const req = require("express/lib/request");
 const { VERSION } = require("./version");
 
@@ -8,6 +8,9 @@ const app = express();
 const port = process.env.PORT || 3000;
 const apiToken = process.env.API_TOKEN;
 const LINES_PER_CHUNK = parseInt(process.env.LINES_PER_CHUNK) || 10;
+const TRANSLATOR_TEXT_SUBSCRIPTION_KEY = process.env.TRANSLATOR_TEXT_SUBSCRIPTION_KEY;
+const TRANSLATOR_TEXT_REGION = process.env.TRANSLATOR_TEXT_REGION;
+const TRANSLATOR_TEXT_ENDPOINT = process.env.TRANSLATOR_TEXT_ENDPOINT;
 
 // 解析 JSON 请求体
 app.use(express.json());
@@ -26,13 +29,28 @@ app.use((req, res, next) => {
 app.post("/translate", async (req, res) => {
   const { text, target_language } = req.body;
   console.log("request, text:", text, ", target_language: ", target_language);
-  try {
-    const result = await translate(text, null, target_language);
-    console.log("result: ", result);
-    res.json({ translation: result.translation });
-  } catch (error) {
-    console.error("Bing Translate API error:", error);
-    res.status(500).json({ error: "Translation failed" });
+  if (TRANSLATOR_TEXT_SUBSCRIPTION_KEY) {
+    try {
+      const result = await MET.translate(text, null, target_language, {
+        'Ocp-Apim-Subscription-Key': TRANSLATOR_TEXT_SUBSCRIPTION_KEY
+      });
+      console.log("MET result: ", JSON.stringify(result));
+      // console.log('MET result[0]: ', result[0].translations[0].text);
+      res.json({ translation: result[0].translations[0].text });
+    } catch (error) {
+      console.error("MET Translate API error:", error);
+      res.status(500).json({ error: "Translation failed" });
+    }
+  } else {
+
+    try {
+      const result = await translate(text, null, target_language);
+      console.log("result: ", result);
+      res.json({ translation: result.translation });
+    } catch (error) {
+      console.error("Bing Translate API error:", error);
+      res.status(500).json({ error: "Translation failed" });
+    }
   }
 });
 
