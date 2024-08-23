@@ -46,4 +46,6 @@ jobs:
           script: |
             cd /home/ubuntu/compose/bing-translate-proxy
             /home/ubuntu/.local/bin/docker-compose pull
+            /home/ubuntu/.local/bin/docker-compose stop
+            /home/ubuntu/.local/bin/docker-compose rm -f
             /home/ubuntu/.local/bin/docker-compose up -d
